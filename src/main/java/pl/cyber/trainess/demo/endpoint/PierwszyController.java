@@ -1,10 +1,10 @@
 package pl.cyber.trainess.demo.endpoint;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import pl.cyber.trainess.demo.dto.ImieDTO;
+import pl.cyber.trainess.demo.dto.Person;
+import pl.cyber.trainess.demo.dto.PersonDTO;
+import pl.cyber.trainess.demo.dto.PersonRequest;
 
 @RestController//adnotacja mówi dla servera Spring że w tym miejscu bedą funkcialnośći REST API
 @RequestMapping("/v1/first")
@@ -16,4 +16,5 @@ public class PierwszyController {
                 .imie(imie)
                 .build();
     }
+
 }

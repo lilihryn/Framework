@@ -2,9 +2,12 @@ package pl.cyber.trainess.demo.endpoint;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pl.cyber.trainess.demo.dto.OneStringRequest;
 import pl.cyber.trainess.demo.dto.StringRequest;
 import pl.cyber.trainess.demo.service.BasicsService;
 import pl.cyber.trainess.demo.service.KalkulatorService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/v1/basics")
@@ -81,7 +84,13 @@ public class BasicsController {
     // Program powinien policzyć ilość wystąpień poszczególnych liter zdania i zwrócić odpowiednio przygotowane dane.
     // Uwaga należy pominąć litery,
     // których w zdaniu nie ma oraz wszystkie znaki puste. Przykład. Ala ma kota a - 4 k - 1 l - 1 m - 1 o - 1 t - 1 */
+    //@PostMapping
+    //@RequestBody
+    //object String posiada metodę matches(//regexp//).matches("[a-zA-Z]+")
+    //Object List posiada metodę sort(//Compartor//).sort(String::compareTo)
 
-
-
+    @PostMapping("/zliczanie")//metoda http
+    public List<String> getWystapienieLiterWZdaniu(@RequestBody final OneStringRequest request) {
+        return basicsService.getWystapienieLiterWZdaniu(request);
+    }
 }

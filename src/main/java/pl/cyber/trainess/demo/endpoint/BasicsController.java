@@ -1,5 +1,6 @@
 package pl.cyber.trainess.demo.endpoint;
 
+import groovyjarjarantlr4.v4.runtime.misc.IntegerList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import pl.cyber.trainess.demo.dto.OneStringRequest;
@@ -8,6 +9,7 @@ import pl.cyber.trainess.demo.service.BasicsService;
 import pl.cyber.trainess.demo.service.KalkulatorService;
 import pl.cyber.trainess.demo.service.ZnajdzService;
 
+import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -130,6 +132,10 @@ następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci i
     // Przykład podajemy: 1 do 10 czego wynikiem będzie 55 */
     // besicsService //endregion petla for
     //GET PathVariable lub RequestParam
+    @GetMapping("/suma-liczb-przedzialu/{a}/{b}")
+    public Integer sumaLiczbPrzedzialu(@PathVariable("a")final Integer a,@PathVariable("b")final Integer b){
+        return kalkulatorService.getSumaLiczbPrzedzialu(a,b);
+    }
 
     // region Zadanie8 /*Napisz program, w krótym przekażemy listę elementów liczb całkowitych
     // program powinien zwrócić listę elementów z wartościami ujemnymi oraz sumę liczb, które są dodatnie.
@@ -149,8 +155,12 @@ następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci i
     for,żeby przejsz po liscie i if dla rozdzielenia
     wynik jest w postacie stringa
     Lista ujemna+"opis"+sumaInt
-     */
 
+     */
+    @PostMapping("/ujemne-czy-dodtnie")
+    public List<Integer>ujemneCzyDodatnie(@RequestBody final IntegerList request){
+        return Collections.singletonList(kalkulatorService.getSumaDodatnichLiczb(request));
+    }
     // zadanie9 /* Napisz zapytanie restowe, którego zadaniem będzie obliczał pierwiastek równania kwadratowego ax2 + bx + c = 0.
     // (Do wykożystania instrukcja if). Pamiętać należy że zmienne a, b i c to liczby rzeczywiste.
     // Zadanie powinno zwrócić Napis:

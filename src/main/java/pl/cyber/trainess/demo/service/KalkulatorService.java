@@ -1,7 +1,11 @@
 package pl.cyber.trainess.demo.service;
 
+import groovyjarjarantlr4.v4.runtime.misc.IntegerList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -62,6 +66,35 @@ public class KalkulatorService {
             throw new RuntimeException("Nie może byc 0");
         }else return a % b == 0;
     }
+
+    public Integer getSumaLiczbPrzedzialu(final Integer a, final Integer b) {
+       Integer sumaLiczb=0;
+       for(int i=a;i<=b;i++){
+           sumaLiczb+=i;
+       }
+        return sumaLiczb;
+    }
+
+    public Integer getSumaDodatnichLiczb(final IntegerList request) {
+      List<Integer> liczby=new ArrayList<>();
+      Integer sumaLiczb=0;
+
+      for(Integer liczba:liczby){
+          if(liczba>0){
+              sumaLiczb=sumaLiczb+liczba;
+
+          }else{
+              getListeUjemnych(request);
+          }
+      }
+      return sumaLiczb;
+    }
+
+    public List<Integer> getListeUjemnych(final IntegerList request) {
+        return null;
+    }
+
+
 /*
   public Integer getLiczbaPierwsza(final Integer liczbaA) {
 

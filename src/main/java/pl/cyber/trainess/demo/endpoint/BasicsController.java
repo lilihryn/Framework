@@ -6,6 +6,7 @@ import pl.cyber.trainess.demo.dto.OneStringRequest;
 import pl.cyber.trainess.demo.dto.StringRequest;
 import pl.cyber.trainess.demo.service.BasicsService;
 import pl.cyber.trainess.demo.service.KalkulatorService;
+import pl.cyber.trainess.demo.service.ZnajdzService;
 
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
 public class BasicsController {
     private final KalkulatorService kalkulatorService;
     private final BasicsService basicsService;
+    private final ZnajdzService znajdzService;
 
     /*
     Zadanie 1
@@ -93,4 +95,71 @@ public class BasicsController {
     public List<String> getWystapienieLiterWZdaniu(@RequestBody final OneStringRequest request) {
         return basicsService.getWystapienieLiterWZdaniu(request);
     }
+
+    //Kolekcje Map
+    @PostMapping("/zliczanie1")//metoda http
+    public List<String> getWystapienieLiterWZdaniuMap(@RequestBody final OneStringRequest request) {
+        return basicsService.getWystapienieLiterWZdaniuMap(request);
+    }
+    /*
+//region Zadanie5 /* Napisz zapytanie restowe, którego zadaniem będzie przekazanie liczb a i b (całkowite),
+następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci informację true lub false */
+
+    @PostMapping("/podzielnoscLiczb/{a}/{b}")
+    public boolean podzielnoscLiczb(@PathVariable("a") final Integer a, @PathVariable("b")final Integer b){
+        return kalkulatorService.getPodzielnoscLiczb(a,b);
+    }
+    @GetMapping("/czy-jest-dzielnikiem/{a}/{b}")
+    public boolean getCzyJestDzielnikiem( @PathVariable final Integer a, @PathVariable final Integer b){
+        return kalkulatorService.getCzyJestDzielnikiem(a,b);
+    }
+    //region Zadanie6 /* Napisz program, który wygeneruje liczbę Random z przedziału od 10 - 1000.
+    // Naszym zadaniem będzie odnalezienie wygenerowanej liczby.
+    // W tym celu należy utworzyć zapytanie restowe, które będzie przyjmowało liczbę i porównywało ją z wygenerowaną przez system.
+    // Jeśli wprowadzona liczba będzie tą wygenerowaną zostanie zwrócony napis "Udało się!!
+    // " Jeśli wprowadzona liczba będzie mniejsza od wygenerowanej zostanie zwrócony napis "Wygenerowana liczba jest większa"
+    // Jeśli wprowadzona liczba będzie większa od wygenerowanej zostanie zwrócony napis "Wygenerowana liczba jest mniejsza"
+    // Uwaga aby generowana liczba powinna być parametrem klasy aby przy każdym zapytaniu restowym nie doszło do jej modyfikacji. */
+
+    @GetMapping ("/liczbaRandom/{a}")
+    public String jakaLiczbaRandom(@PathVariable("a") final Integer a){
+        return znajdzService.jakaLiczbaRandom(a);
+    }
+    //region Zadanie7 /* Napisz program, w którym zostaną przekazane liczby a i b (całkowite)
+    // następnie zostaną zsumowane wszystkie liczby pomiędzy od a do b (jako przedział zamknięty dwustronnie).
+    // Przykład podajemy: 1 do 10 czego wynikiem będzie 55 */
+    // besicsService //endregion petla for
+    //GET PathVariable lub RequestParam
+
+    // region Zadanie8 /*Napisz program, w krótym przekażemy listę elementów liczb całkowitych
+    // program powinien zwrócić listę elementów z wartościami ujemnymi oraz sumę liczb, które są dodatnie.
+    // Np. [1, 2, 3, 4, 5, -3, -2, -1]
+    //
+    // wynik: [-3, -2, -1] oraz suma liczb dodatnich wynosi:
+    // 15 */ //besicsService //endregion //region
+    //POST RequestBody
+    //IntegerListRequest>>List<Integer>
+    //JSON
+    /*
+    if żeby sprawdzić czy lista jest ujemna czy dodatnia
+    sortowanie listy przez sort
+    musze być
+    lista wartostej ujemnych
+    lista sumy liczb dodatnich
+    for,żeby przejsz po liscie i if dla rozdzielenia
+    wynik jest w postacie stringa
+    Lista ujemna+"opis"+sumaInt
+     */
+
+    // zadanie9 /* Napisz zapytanie restowe, którego zadaniem będzie obliczał pierwiastek równania kwadratowego ax2 + bx + c = 0.
+    // (Do wykożystania instrukcja if). Pamiętać należy że zmienne a, b i c to liczby rzeczywiste.
+    // Zadanie powinno zwrócić Napis:
+    // a) To nie jest równanie kwadratowe
+    // b) Brak pierwiastków
+    // c) Jeden pierwiastek.
+    // Wynik: xxxx d) Dwa pierwiastki. Wynik -> x1: xxxx, x2: xxxx */ //KalkulatorService //endregion
+    //na if-ach bez for-u
+    //GetMapping,trzy parametry w środku PathVariable
+    //GetMapping RequestParam
+    //PostMapping
 }

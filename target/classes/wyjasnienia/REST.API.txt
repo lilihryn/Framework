@@ -1,5 +1,5 @@
 metody REST(najpopularniejsze)
-1)metoda GET->odpowiada za pobieranie danych z servera po przekazanych parametrach
+1)metoda GET->odpowiada za pobieranie danych z servera po przekazanych parametrach( v parametrach nie może być RequestBody)
 2)metoda POST->odpowiada za ogólną zmianę danych(tworzenie danych i ich modyfikacja) na serwerze po przekazannych parametrach
 3)metoda PUT-> odpowiada tylko za tworzenie obiektu/zbioru danych na serwerze
 4)metoda DELETE->odpowiada za usuwanie danych z servera po prekazanych parametrach
@@ -27,7 +27,7 @@ PUT:
 DELETE:
 -200(OK)
 -404(Not Found)
-PUTCH:
+PATCH:
 -200(OK)
 -204(No Content)
 -404(Not Found)

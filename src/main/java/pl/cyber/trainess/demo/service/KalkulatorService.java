@@ -1,6 +1,5 @@
 package pl.cyber.trainess.demo.service;
 
-import com.fasterxml.jackson.databind.exc.MismatchedInputException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -49,6 +48,19 @@ public class KalkulatorService {
             }
         }
         return "To jest liczba pierwsza";
+    }
+
+    public boolean getPodzielnoscLiczb(final Integer a, final Integer b) {
+
+        if(b==0){
+            throw new RuntimeException("Nie może byc 0");
+        }else return a % b == 0;
+    }
+
+    public boolean getCzyJestDzielnikiem(final Integer a, final Integer b) {//variant 2
+        if(b==0){
+            throw new RuntimeException("Nie może byc 0");
+        }else return a % b == 0;
     }
 /*
   public Integer getLiczbaPierwsza(final Integer liczbaA) {

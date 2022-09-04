@@ -9,9 +9,14 @@ import java.util.*;
 
 @Service
 public class BasicsService {
+
+    private static String SPACJA=" ";//globalna zmianna
     public String getSklejenie(final StringRequest request) {
-        return request.getStringPierwszy() + request.getStringDrugi();
+        //return request.getStringPierwszy() + request.getStringDrugi();
         //stringy sie konkatynują +
+
+        var string=new StringBuilder();
+        return string.append(request.getStringPierwszy()).append(SPACJA).append(request.getStringDrugi()).toString();//dodajemy spacje
     }
 
     public List<String> getWystapienieLiterWZdaniu(final OneStringRequest request) {
@@ -33,8 +38,8 @@ public class BasicsService {
                     if (litery.contains(litera.toLowerCase())) {//czy lista litery zawiera juz dany element
                         for (LiteryDTO element : wystapienia
                         ) {
-                            if (element.getLitera().equals(litera.toLowerCase())){
-                                element.setIlosc(element.getIlosc()+1);
+                            if (element.getLitera().equals(litera.toLowerCase())) {
+                                element.setIlosc(element.getIlosc() + 1);
                             }
                         }
                     } else {
@@ -48,11 +53,31 @@ public class BasicsService {
                 }
             }
         }
-        for (LiteryDTO element:wystapienia){
-            wynik.add(element.getLitera()+"-"+element.getIlosc());
+        for (LiteryDTO element : wystapienia) {
+            wynik.add(element.getLitera() + "-" + element.getIlosc());
 
         }
         wynik.sort(String::compareTo);//sortowanie listy wynik alfabetycznie(bo operujemy na stringach)
+        return wynik;
+    }
+  public List<String>getWystapienieLiterWZdaniuMap(final OneStringRequest request){
+        Map<String,Integer>wystapienia=new HashMap<>();
+        List<String>wynik=new ArrayList<>();
+        String zdanie= request.getValue().toLowerCase();
+        for(int i=0;i<zdanie.length();i++){
+            String litera=String.valueOf(zdanie.charAt(i));
+            if(litera.matches("[a-zA-Z]")){
+                if(wystapienia.containsKey(litera)){
+                    wystapienia.put(litera, wystapienia.get(litera)+1);//zwiększenie licznyka na 1
+                }else{
+                    wystapienia.put(litera,1);
+                }
+            }
+        }
+        for (String element:wystapienia.keySet()//zwraca lista kluczy(litera i pozycja
+             ) {wynik.add(element+""+wystapienia.get(element));
+
+        }
         return wynik;
     }
 }

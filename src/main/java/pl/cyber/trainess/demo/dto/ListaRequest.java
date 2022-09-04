@@ -10,10 +10,11 @@ import java.beans.ConstructorProperties;
 @Slf4j
 @Getter
 public class ListaRequest {
-  private IntegerList Liczby;
-  @ConstructorProperties("{liczby}")
 
-    public ListaRequest(final IntegerList liczby) {
+    private String Liczby;
+    @ConstructorProperties({"liczby"})
+
+    public ListaRequest(final String liczby) {
         Liczby = liczby;
     }
 }

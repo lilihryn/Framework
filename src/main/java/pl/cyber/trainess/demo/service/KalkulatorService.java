@@ -1,11 +1,8 @@
 package pl.cyber.trainess.demo.service;
 
-import groovyjarjarantlr4.v4.runtime.misc.IntegerList;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Service
@@ -56,43 +53,47 @@ public class KalkulatorService {
 
     public boolean getPodzielnoscLiczb(final Integer a, final Integer b) {
 
-        if(b==0){
+        if (b == 0) {
             throw new RuntimeException("Nie może byc 0");
-        }else return a % b == 0;
+        } else return a % b == 0;
     }
 
     public boolean getCzyJestDzielnikiem(final Integer a, final Integer b) {//variant 2
-        if(b==0){
+        if (b == 0) {
             throw new RuntimeException("Nie może byc 0");
-        }else return a % b == 0;
+        } else return a % b == 0;
     }
 
     public Integer getSumaLiczbPrzedzialu(final Integer a, final Integer b) {
-       Integer sumaLiczb=0;
-       for(int i=a;i<=b;i++){
-           sumaLiczb+=i;
-       }
+        Integer sumaLiczb = 0;
+        for (int i = a; i <= b; i++) {
+            sumaLiczb += i;
+        }
         return sumaLiczb;
     }
 
-    public Integer getSumaDodatnichLiczb(final IntegerList request) {
-      List<Integer> liczby=new ArrayList<>();
-      Integer sumaLiczb=0;
+    public String getPierwiastekRownianiaKwadratowego(final Double a, final Double b, final Double c) {
 
-      for(Integer liczba:liczby){
-          if(liczba>0){
-              sumaLiczb=sumaLiczb+liczba;
+        var delta = 0;
+        var x1 = 0;
+        var x2 = 0;
+        if (a > 0) {
+            delta = (int) (Math.pow(b, 2) - 4 * a * c);
+            if (delta > 0) {
+                x1 = (int) ((-b - Math.sqrt(delta)) / (2 * a));
+                x2 = (int) ((-b + Math.sqrt(delta)) / (2 * a));
+                return "Dwa pierwiastki. Wynik -> x1: " + String.valueOf(x1) + "x2: " + String.valueOf(x2);
 
-          }else{
-              getListeUjemnych(request);
-          }
-      }
-      return sumaLiczb;
+            } else if (delta == 0) {
+                x1 = (int) (-b / (2 * a));
+                return "Jeden pierwiastek: " + String.valueOf(x1);
+            } else if (delta < 0) {
+                return "Niema pierwiastkow";
+            }
+        }
+        return "To nie jest rownianie kwadratowe";
     }
 
-    public List<Integer> getListeUjemnych(final IntegerList request) {
-        return null;
-    }
 
 
 /*

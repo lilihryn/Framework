@@ -1,15 +1,14 @@
 package pl.cyber.trainess.demo.endpoint;
 
-import groovyjarjarantlr4.v4.runtime.misc.IntegerList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import pl.cyber.trainess.demo.dto.ListaRequest;
 import pl.cyber.trainess.demo.dto.OneStringRequest;
 import pl.cyber.trainess.demo.dto.StringRequest;
 import pl.cyber.trainess.demo.service.BasicsService;
 import pl.cyber.trainess.demo.service.KalkulatorService;
 import pl.cyber.trainess.demo.service.ZnajdzService;
 
-import java.util.Collections;
 import java.util.List;
 
 @RestController
@@ -157,10 +156,11 @@ następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci i
     Lista ujemna+"opis"+sumaInt
 
      */
-    @PostMapping("/ujemne-czy-dodtnie")
-    public List<Integer>ujemneCzyDodatnie(@RequestBody final IntegerList request){
-        return Collections.singletonList(kalkulatorService.getSumaDodatnichLiczb(request));
+    @PostMapping("/lista-wartostej-suma")
+    public String czyUjemneCzyDodatnie(@RequestBody final ListaRequest request){
+        return basicsService.getListeUjemnychSumaInt(request);
     }
+
     // zadanie9 /* Napisz zapytanie restowe, którego zadaniem będzie obliczał pierwiastek równania kwadratowego ax2 + bx + c = 0.
     // (Do wykożystania instrukcja if). Pamiętać należy że zmienne a, b i c to liczby rzeczywiste.
     // Zadanie powinno zwrócić Napis:
@@ -172,4 +172,9 @@ następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci i
     //GetMapping,trzy parametry w środku PathVariable
     //GetMapping RequestParam
     //PostMapping
+
+    @GetMapping("/pierwiastek-rownania-kwadratowego/{a}/{b}/{c}")
+    public String pierwistekRownianiaKwadratowego(@PathVariable("a") final Double a, @PathVariable("b") final Double b, @PathVariable("c") final Double c){
+        return kalkulatorService.getPierwiastekRownianiaKwadratowego(a,b,c);
+    }
 }

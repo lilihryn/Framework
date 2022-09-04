@@ -11,5 +11,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class ListaDTO {
     private Integer liczba;
-    private Integer sumaLiczb;
+    private Integer sumaInt;
 }

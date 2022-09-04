@@ -1,21 +1,25 @@
 package pl.cyber.trainess.demo.service;
 
 import org.springframework.stereotype.Service;
+import pl.cyber.trainess.demo.dto.ListaRequest;
 import pl.cyber.trainess.demo.dto.OneStringRequest;
 import pl.cyber.trainess.demo.dto.StringRequest;
 import pl.cyber.trainess.demo.dto.LiteryDTO;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class BasicsService {
 
-    private static String SPACJA=" ";//globalna zmianna
+    private static String SPACJA = " ";//globalna zmianna
+
     public String getSklejenie(final StringRequest request) {
         //return request.getStringPierwszy() + request.getStringDrugi();
         //stringy sie konkatynują +
 
-        var string=new StringBuilder();
+        var string = new StringBuilder();
         return string.append(request.getStringPierwszy()).append(SPACJA).append(request.getStringDrugi()).toString();//dodajemy spacje
     }
 
@@ -60,24 +64,42 @@ public class BasicsService {
         wynik.sort(String::compareTo);//sortowanie listy wynik alfabetycznie(bo operujemy na stringach)
         return wynik;
     }
-  public List<String>getWystapienieLiterWZdaniuMap(final OneStringRequest request){
-        Map<String,Integer>wystapienia=new HashMap<>();
-        List<String>wynik=new ArrayList<>();
-        String zdanie= request.getValue().toLowerCase();
-        for(int i=0;i<zdanie.length();i++){
-            String litera=String.valueOf(zdanie.charAt(i));
-            if(litera.matches("[a-zA-Z]")){
-                if(wystapienia.containsKey(litera)){
-                    wystapienia.put(litera, wystapienia.get(litera)+1);//zwiększenie licznyka na 1
-                }else{
-                    wystapienia.put(litera,1);
+
+    public List<String> getWystapienieLiterWZdaniuMap(final OneStringRequest request) {
+        Map<String, Integer> wystapienia = new HashMap<>();
+        List<String> wynik = new ArrayList<>();
+        String zdanie = request.getValue().toLowerCase();
+        for (int i = 0; i < zdanie.length(); i++) {
+            String litera = String.valueOf(zdanie.charAt(i));
+            if (litera.matches("[a-zA-Z]")) {
+                if (wystapienia.containsKey(litera)) {
+                    wystapienia.put(litera, wystapienia.get(litera) + 1);//zwiększenie licznyka na 1
+                } else {
+                    wystapienia.put(litera, 1);
                 }
             }
         }
-        for (String element:wystapienia.keySet()//zwraca lista kluczy(litera i pozycja
-             ) {wynik.add(element+""+wystapienia.get(element));
+        for (String element : wystapienia.keySet()//zwraca lista kluczy(litera i pozycja
+        ) {
+            wynik.add(element + "" + wystapienia.get(element));
 
         }
         return wynik;
+    }
+
+    public String getListeUjemnychSumaInt(final ListaRequest request) {
+
+        List<Integer> listaUjemnych = new ArrayList<>();
+
+        List<Integer> podaneLiczby = Stream.of(request.getLiczby().split(",")).map(Integer::valueOf).collect(Collectors.toList());
+        Integer sumaInt = 0;
+        for (Integer liczba : podaneLiczby) {
+            if (liczba > 0) {
+                sumaInt = sumaInt + liczba;
+            } else {
+                listaUjemnych.add(liczba);
+            }
+        }
+        return listaUjemnych + "Suma liczb dodatnich" + sumaInt;
     }
 }

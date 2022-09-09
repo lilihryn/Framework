@@ -1,4 +1,4 @@
-metody REST(najpopularniejsze)
+metody REST(najpopularniejsze)metody http
 1)metoda GET->odpowiada za pobieranie danych z servera po przekazanych parametrach( v parametrach nie może być RequestBody)
 2)metoda POST->odpowiada za ogólną zmianę danych(tworzenie danych i ich modyfikacja) na serwerze po przekazannych parametrach
 3)metoda PUT-> odpowiada tylko za tworzenie obiektu/zbioru danych na serwerze

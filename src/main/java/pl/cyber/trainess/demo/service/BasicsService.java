@@ -1,10 +1,7 @@
 package pl.cyber.trainess.demo.service;
 
 import org.springframework.stereotype.Service;
-import pl.cyber.trainess.demo.dto.ListaRequest;
-import pl.cyber.trainess.demo.dto.OneStringRequest;
-import pl.cyber.trainess.demo.dto.StringRequest;
-import pl.cyber.trainess.demo.dto.LiteryDTO;
+import pl.cyber.trainess.demo.dto.*;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -101,5 +98,30 @@ public class BasicsService {
             }
         }
         return listaUjemnych + "Suma liczb dodatnich" + sumaInt;
+    }
+
+    public String sumaLiczbPomiedzy(final Integer a, final Integer b) {
+        if (a > b) {
+            throw new RuntimeException("a musze być mniejsze b");
+        }
+        Integer wynik = 0;
+        for (int i = a; i <= b; i++) {
+            wynik += i;
+        }
+        return "Wynik dodawania liczb pomiedzy a:" + a + "oraz b: " + b + "to: " + wynik;
+    }
+
+    public String zadanie8(final IntegerListRequest request) {
+        List<Integer> listaUjemnych = new ArrayList<>();
+        Integer sumaDodatnich = 0;
+        for (Integer element : request.getIntList()
+        ) {
+            if (element < 0) {
+                listaUjemnych.add(element);
+            } else {
+                sumaDodatnich += element;
+            }
+        }
+        return listaUjemnych+"oraz suma dodatnich"+sumaDodatnich;
     }
 }

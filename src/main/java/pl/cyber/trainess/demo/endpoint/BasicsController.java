@@ -2,9 +2,7 @@ package pl.cyber.trainess.demo.endpoint;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import pl.cyber.trainess.demo.dto.ListaRequest;
-import pl.cyber.trainess.demo.dto.OneStringRequest;
-import pl.cyber.trainess.demo.dto.StringRequest;
+import pl.cyber.trainess.demo.dto.*;
 import pl.cyber.trainess.demo.service.BasicsService;
 import pl.cyber.trainess.demo.service.KalkulatorService;
 import pl.cyber.trainess.demo.service.ZnajdzService;
@@ -107,12 +105,13 @@ public class BasicsController {
 następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci informację true lub false */
 
     @PostMapping("/podzielnoscLiczb/{a}/{b}")
-    public boolean podzielnoscLiczb(@PathVariable("a") final Integer a, @PathVariable("b")final Integer b){
-        return kalkulatorService.getPodzielnoscLiczb(a,b);
+    public boolean podzielnoscLiczb(@PathVariable("a") final Integer a, @PathVariable("b") final Integer b) {
+        return kalkulatorService.getPodzielnoscLiczb(a, b);
     }
+
     @GetMapping("/czy-jest-dzielnikiem/{a}/{b}")
-    public boolean getCzyJestDzielnikiem( @PathVariable final Integer a, @PathVariable final Integer b){
-        return kalkulatorService.getCzyJestDzielnikiem(a,b);
+    public boolean getCzyJestDzielnikiem(@PathVariable final Integer a, @PathVariable final Integer b) {
+        return kalkulatorService.getCzyJestDzielnikiem(a, b);
     }
     //region Zadanie6 /* Napisz program, który wygeneruje liczbę Random z przedziału od 10 - 1000.
     // Naszym zadaniem będzie odnalezienie wygenerowanej liczby.
@@ -122,18 +121,26 @@ następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci i
     // Jeśli wprowadzona liczba będzie większa od wygenerowanej zostanie zwrócony napis "Wygenerowana liczba jest mniejsza"
     // Uwaga aby generowana liczba powinna być parametrem klasy aby przy każdym zapytaniu restowym nie doszło do jej modyfikacji. */
 
-    @GetMapping ("/liczbaRandom/{a}")
-    public String jakaLiczbaRandom(@PathVariable("a") final Integer a){
+    @GetMapping("/liczbaRandom/{a}")
+    public String jakaLiczbaRandom(@PathVariable("a") final Integer a) {
         return znajdzService.jakaLiczbaRandom(a);
     }
+
+
     //region Zadanie7 /* Napisz program, w którym zostaną przekazane liczby a i b (całkowite)
     // następnie zostaną zsumowane wszystkie liczby pomiędzy od a do b (jako przedział zamknięty dwustronnie).
     // Przykład podajemy: 1 do 10 czego wynikiem będzie 55 */
     // besicsService //endregion petla for
     //GET PathVariable lub RequestParam
+    //dwa warianty,pierwszy mój
     @GetMapping("/suma-liczb-przedzialu/{a}/{b}")
-    public Integer sumaLiczbPrzedzialu(@PathVariable("a")final Integer a,@PathVariable("b")final Integer b){
-        return kalkulatorService.getSumaLiczbPrzedzialu(a,b);
+    public Integer sumaLiczbPrzedzialu(@PathVariable("a") final Integer a, @PathVariable("b") final Integer b) {
+        return kalkulatorService.getSumaLiczbPrzedzialu(a, b);
+    }
+
+    @GetMapping("/suma-liczb")
+    public String sumaLicbPomiedzy(@RequestParam("a") final Integer a, @RequestParam("b") final Integer b) {
+        return basicsService.sumaLiczbPomiedzy(a, b);
     }
 
     // region Zadanie8 /*Napisz program, w krótym przekażemy listę elementów liczb całkowitych
@@ -154,15 +161,22 @@ następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci i
     for,żeby przejsz po liscie i if dla rozdzielenia
     wynik jest w postacie stringa
     Lista ujemna+"opis"+sumaInt
+    dwa warianty,pierwszy mój
 
      */
     @PostMapping("/lista-wartostej-suma")
-    public String czyUjemneCzyDodatnie(@RequestBody final ListaRequest request){
+    public String czyUjemneCzyDodatnie(@RequestBody final ListaRequest request) {
         return basicsService.getListeUjemnychSumaInt(request);
     }
 
+    @PostMapping("/liczby")
+    public String zadanie8(@RequestBody final IntegerListRequest request) {
+        return basicsService.zadanie8(request);
+    }
+
+
     // zadanie9 /* Napisz zapytanie restowe, którego zadaniem będzie obliczał pierwiastek równania kwadratowego ax2 + bx + c = 0.
-    // (Do wykożystania instrukcja if). Pamiętać należy że zmienne a, b i c to liczby rzeczywiste.
+    // (Do wykorzystania instrukcja if). Pamiętać należy że zmienne a, b i c to liczby rzeczywiste.
     // Zadanie powinno zwrócić Napis:
     // a) To nie jest równanie kwadratowe
     // b) Brak pierwiastków
@@ -172,9 +186,27 @@ następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci i
     //GetMapping,trzy parametry w środku PathVariable
     //GetMapping RequestParam
     //PostMapping
+    //dwa rozwiazania,pierwsze moje
 
     @GetMapping("/pierwiastek-rownania-kwadratowego/{a}/{b}/{c}")
-    public String pierwistekRownianiaKwadratowego(@PathVariable("a") final Double a, @PathVariable("b") final Double b, @PathVariable("c") final Double c){
-        return kalkulatorService.getPierwiastekRownianiaKwadratowego(a,b,c);
+    public String pierwistekRownianiaKwadratowego(@PathVariable("a") final Double a,
+                                                  @PathVariable("b") final Double b,
+                                                  @PathVariable("c") final Double c) {
+        return kalkulatorService.getPierwiastekRownianiaKwadratowego(a, b, c);
+    }
+
+    @GetMapping("/rownanie-kwadratowe/{a}/{b}/{c}")
+    public String rownanieKwadratowe(@PathVariable("a") final Integer a,
+                                     @PathVariable("b") final Integer b,
+                                     @PathVariable("c") final Integer c) {
+        return kalkulatorService.rownanieKwadratowe(a, b, c);
+    }
+    @PostMapping("/rownanie-kwadratowe2")
+    public String rownanieKwadratowe2(@RequestBody final RownanieKwadratoweRequest request){
+        return kalkulatorService.rownanieKwadratowe(request);
+    }
+    @PostMapping("/rownanie-kwadratowe-2miejsca")
+    public String rownanieKwadratowe2miejsca(@RequestBody final RownanieKwadratoweRequest request){
+        return kalkulatorService.rownanieKwadratowe2miejsca(request);
     }
 }

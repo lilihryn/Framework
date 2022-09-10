@@ -210,6 +210,78 @@ następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci i
         return kalkulatorService.rownanieKwadratowe2miejsca(request);
     }
     /*
+    Zadanie10:
+    Za pomocą instrukciji pętli for dla danych wartośći x zmięniających o 0 do 10 odliczymy wartość funkciji y=3x
+     */
+    @GetMapping("/zadanie10a")
+    public String zadanie10a(){
+        return kalkulatorService.zadanie10a();
+    }
+    /*
+    Zadanie10b
+    Za pomocą instrukciji pętli do while dla danych wartośći x zmięniających o 0 do 10 odliczymy wartość funkciji y=3x
+     */
+    @GetMapping("/zadanie10b")
+    public String zadanie10b(){
+        return kalkulatorService.zadanie10b();
+    }
+    /*
+    zadanie10c
+    z pomocą pętli while
+     */
+    @GetMapping("/zadanie10c")
+    public String zadanie10c(){
+       return kalkulatorService.zadanie10c();
+    }
+    /*
+    Praca domowa zrobić z pomocą @RequestParam
+    @RequestBody zadania 10a-c
+     */
+
+
+    /*
+    Zadanie11a
+    Program,który przy pomocy pętli for przekaże nam wyniki tabliczki mnżenia od1 do 100
+    potrzebujemy 2 pętli for wiersz i kolumna
+    Parametr 1-10
+     */
+    @GetMapping("/zadanie11a")
+    public String zadanie11a(){
+        return kalkulatorService.zadanie11a();
+    }
+    @GetMapping("/zadanie11aa")
+    public String zadanie11aa(){
+        return kalkulatorService.zadanie11aa();
+    }
+    @GetMapping("/zadanie11ab")
+    public String zadanie11ab(){
+        return kalkulatorService.zadanie11ab();
+    }
+/*
+    Zadanie11b
+    Program,który przy pomocy pętli do while  przekaże nam wyniki tabliczki mnżenia od1 do 100
+    potrzebujemy 2 pętli for wiersz i kolumna
+    Parametr 1-10
+     */
+
+   @GetMapping("/zadanie11b")
+    public String zadanie11b(){
+       return kalkulatorService.zadanie11b();
+   }
+   /*
+   Zadanie11c z petlą while
+   while(){wiersze
+   pierwotne ustawienie dla kolumny
+   while(){kolumny
+   mnozenie
+   inkrementacja kolumny
+   }}
+    */
+    @GetMapping("/zadanie11c")
+    public String zadanie11c(){
+        return kalkulatorService.zadanie11c();
+    }
+    /*
 
      */
 }

@@ -142,10 +142,10 @@ public class KalkulatorService {
     }
 
     public String rownanieKwadratowe2miejsca(final RownanieKwadratoweRequest request) {
-        Locale englishLocale= Locale.ENGLISH;//reprezentacja liczb, liter etc
-        Locale polishLocale=Locale.forLanguageTag("pl-PL");//oczekujemy języka polskiego
+        Locale englishLocale = Locale.ENGLISH;//reprezentacja liczb, liter etc
+        Locale polishLocale = Locale.forLanguageTag("pl-PL");//oczekujemy języka polskiego
         Locale.setDefault(polishLocale);
-        DecimalFormat df=new DecimalFormat("#,###.00");
+        DecimalFormat df = new DecimalFormat("#,###.00");
         //gdzie##liczby niewiadome, przecinek w zapisu jest spacijem w 1 000 ,zmiania kropke na przecinek, pokazuje dwie liczby po przecinku
         // moe być #,##.0# albo #.# albo
         Double delta = 0.0;
@@ -167,23 +167,129 @@ public class KalkulatorService {
         }
     }
 
-
-
-/*
-  public Integer getLiczbaPierwsza(final Integer liczbaA) {
-
-        if (liczbaA == 0) {
-            throw new RuntimeException("Liczba nie może być 0 ");
-        } else if (liczbaA == +-1) {
-            throw new RuntimeException("Liczba nie może być  +-1 ");
-        } else if (liczbaA % 2 == 0) {
-            throw new RuntimeException("Liczba nie może być parzysta ");
-        } else if (liczbaA % liczbaA != 0 && liczbaA % 1 != 0) {
-            throw new RuntimeException("Liczba nie jest pierwszą");
+    public String zadanie10a() {
+        /*Integer y = 0;
+        String result = "Program oblicza wartość funkciji y=3x dla x od 0 do 10.\n";//\n z nowej linii
+        for (int x = 0; x <= 10; x++) {
+            y = 3 * x;
+            result = result + ("x= " + x + "\t" + "y=" + y + "\n");//\t tabulator, wielkość odstęmpu
         }
-        return liczbaA;
+        return result;*/
+        //to samo przez StringBuilder'a
 
+        Integer y = 0;
+        StringBuilder result = new StringBuilder("Program oblicza wartość funkciji y=3x dla x od 0 do 10.\n");//\n z nowej linii
+        for (int x = 0; x <= 10; x++) {
+            y = 3 * x;
+            result.append("x= ").append(x).append("\t").append("y= ").append(y).append("\n");//\t tabulator, wielkość odstęmpu
+        }
+        return result.toString();
     }
 
-*/
+
+    public String zadanie10b() {
+        Integer x = 0;
+        Integer y = 0;
+        String result = "Program oblicza wartość funkciji y=3x dla x od 0 do 10." + "Za pomoocm pętli do-while\n";
+        do {
+            y = 3 * x;
+            result += "x= " + x + "\t" + "y=" + y + "\n";
+            x++;
+        } while (x <= 10);
+        return result;
+    }
+
+    public String zadanie10c() {
+        Integer y = 0;
+        Integer x = 0;
+        String result = "Program oblicza wartość funkciji y=3x dla x od 0 do 10." + "Za pomoocm pętli while\n";
+        while (x <= 10) {
+            y = 3 * x;
+            result += "x= " + x + "\t" + "y=" + y + "\n";
+            x++;
+
+        }
+        return result;
+    }
+
+    public String zadanie11a() {
+        Integer y = 1;
+        Integer x = 1;
+        Integer wynik = 1;
+
+        StringBuilder result = new StringBuilder("Tabliczka mnożenia od 1 do 100\n");
+        for (x = 1; x <= 10; x++) {
+            for (y = 1; y <= 10; y++) {
+                wynik = y * x;
+                result.append(wynik).append("\t");
+            }
+            result.append("\n");
+        }
+        return result.toString();
+    }
+
+    public String zadanie11aa() {
+        Integer n = 10;
+        String result = "Tabliczka mnożenia od 1 do 100\n\n";
+        for (int wiersz = 1; wiersz <= n; wiersz++) {
+            for (int kolumna = 1; kolumna <= n; kolumna++) {
+                result += wiersz * kolumna;
+                result += "\t";
+            }
+            result += "\n";
+        }
+        return result;
+    }
+
+    public String zadanie11ab() {
+        Integer w = 20;
+        Integer k = 15;
+        String result = "Tabliczka mnożenia 15 na 20 \n\n";
+        for (int wiersz = 1; wiersz <= w; wiersz++) {
+            for (int kolumna = 1; kolumna <= k; kolumna++) {
+                result += wiersz * kolumna;
+                result += "\t";
+            }
+            result += "\n";
+        }
+        return result;
+    }
+
+    public String zadanie11b() {
+        Integer kolumna = 1;
+        Integer wiersz = 1;
+        Integer k = 10;
+        Integer w = 20;
+        String result = "Tabliczka mnożenia z pomocą do while\n";
+
+        do {
+            kolumna = 1;
+            do {
+                result += kolumna * wiersz;
+                result += "\t";
+                kolumna++;
+            } while (kolumna <= k);
+            result += "\n";
+            wiersz++;
+        } while (wiersz <= w);
+        return result;
+    }
+
+    public String zadanie11c() {
+        Integer kolumna = 1;
+        Integer wiersz = 1;
+        Integer k = 10;
+        Integer w = 20;
+        StringBuilder result = new StringBuilder("Tabliczka mnozenia while\n");
+        while (wiersz <= w) {
+            kolumna = 1;
+            while (kolumna <= k) {
+                result.append(wiersz * kolumna).append("\t");
+                kolumna++;
+            }
+            result.append("\n");
+            wiersz++;
+        }
+        return result.toString();
+    }
 }

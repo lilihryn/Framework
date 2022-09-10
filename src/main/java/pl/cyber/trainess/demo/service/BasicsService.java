@@ -122,6 +122,7 @@ public class BasicsService {
                 sumaDodatnich += element;
             }
         }
-        return listaUjemnych+"oraz suma dodatnich"+sumaDodatnich;
+        return listaUjemnych + "oraz suma dodatnich" + sumaDodatnich;
     }
+
 }

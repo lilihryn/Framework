@@ -209,4 +209,7 @@ następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci i
     public String rownanieKwadratowe2miejsca(@RequestBody final RownanieKwadratoweRequest request){
         return kalkulatorService.rownanieKwadratowe2miejsca(request);
     }
+    /*
+
+     */
 }

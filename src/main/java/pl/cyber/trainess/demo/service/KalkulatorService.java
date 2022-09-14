@@ -6,7 +6,8 @@ import org.springframework.stereotype.Service;
 import pl.cyber.trainess.demo.dto.RownanieKwadratoweRequest;
 
 import java.text.DecimalFormat;
-import java.util.Locale;
+import java.util.*;
+
 
 
 @Service
@@ -146,7 +147,8 @@ public class KalkulatorService {
         Locale polishLocale = Locale.forLanguageTag("pl-PL");//oczekujemy języka polskiego
         Locale.setDefault(polishLocale);
         DecimalFormat df = new DecimalFormat("#,###.00");
-        //gdzie##liczby niewiadome, przecinek w zapisu jest spacijem w 1 000 ,zmiania kropke na przecinek, pokazuje dwie liczby po przecinku
+        //gdzie##liczby niewiadome, przecinek w zapisu jest spacijem w 1 000
+        // ,zmiania kropke na przecinek, pokazuje dwie liczby po przecinku
         // moe być #,##.0# albo #.# albo
         Double delta = 0.0;
         Double x1 = 0.0;
@@ -291,5 +293,30 @@ public class KalkulatorService {
             wiersz++;
         }
         return result.toString();
+    }
+
+    public String wartoscRowniania(final double a, final double b, final double c) {
+        Locale polishLocale = Locale.forLanguageTag("pl-PL");//oczekujemy języka polskiego
+        Locale.setDefault(polishLocale);
+        DecimalFormat df = new DecimalFormat("#,##.##");
+        double x=0.0;
+        if (a == 0) {
+            throw new RuntimeException("a nie może byc nulem");
+
+        }else{
+            x=(c-b)/a;
+        }
+        return "Przy a:"+a+"b: "+b+"c: "+c+"x= "+x;
+    }
+
+    public String zbiorN() {
+
+        List<Integer>zbiorN=new ArrayList<>();
+        Random random=new Random();
+        for (int i = 0; i < 5; i++) {
+            zbiorN.add(random.nextInt(100) + 1);
+        }
+
+        return null;
     }
 }

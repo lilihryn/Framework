@@ -282,6 +282,34 @@ następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci i
         return kalkulatorService.zadanie11c();
     }
     /*
+ //region ZADANIE DOMOWE
+  /*
+zadanie
+  Proszę zadanie 10 (a, b, c) przerobić tak, aby można było z zewnątrz podać parametr x oraz parametr do kiedy nasza pętla ma się wykonywać
+  Proszę aby nie wzorować się na dostępnych metodach.
+Zadania dla chętnych:
+1)
+Napisz program, który oblicza wartość x z równania ax+b = c. Wartości a, b i c należy podać poprzez PathVariable, RequestParam lub RequestBody.
+Należy zabezpieczyć program na wypadek sytuacji, kiedy wprowadzona wartość 'a' będzie równa zero. Dla zmiennych a, b, c oraz x należy
+przyjąć format wyświetlania ich na ekranie z dokładnością do dwóch miejsc
+po przecinku
+2)
+Napisz program, który za pomocą instrukcji (for, do ... while oraz while, tzn trzy różne rozwiązania)
+znajduje największą i najmniejszą liczbę ze zbioru 'n' wylosowanych liczb całkowitych od 0 do 100
+oraz oblicza średnią ze wszystkich wylosowanych liczb
+  */
+    //endregion
 
-     */
+    @GetMapping("/wartosc-rowniania/{a}/{b}/{c}")
+    public String wartoscRowniania(@PathVariable("a") final double a, @PathVariable("b") final double b, @PathVariable("c") final double c){
+      return   kalkulatorService.wartoscRowniania(a,b,c);
+    }
+
+    @GetMapping("/zbior-n")
+    public String zbiorN(){
+        return kalkulatorService.zbiorN();
+    }
+
+
+
 }

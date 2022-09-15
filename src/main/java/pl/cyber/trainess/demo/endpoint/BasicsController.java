@@ -201,37 +201,42 @@ następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci i
                                      @PathVariable("c") final Integer c) {
         return kalkulatorService.rownanieKwadratowe(a, b, c);
     }
+
     @PostMapping("/rownanie-kwadratowe2")
-    public String rownanieKwadratowe2(@RequestBody final RownanieKwadratoweRequest request){
+    public String rownanieKwadratowe2(@RequestBody final RownanieKwadratoweRequest request) {
         return kalkulatorService.rownanieKwadratowe(request);
     }
+
     @PostMapping("/rownanie-kwadratowe-2miejsca")
-    public String rownanieKwadratowe2miejsca(@RequestBody final RownanieKwadratoweRequest request){
+    public String rownanieKwadratowe2miejsca(@RequestBody final RownanieKwadratoweRequest request) {
         return kalkulatorService.rownanieKwadratowe2miejsca(request);
     }
+
     /*
     Zadanie10:
     Za pomocą instrukciji pętli for dla danych wartośći x zmięniających o 0 do 10 odliczymy wartość funkciji y=3x
      */
     @GetMapping("/zadanie10a")
-    public String zadanie10a(){
+    public String zadanie10a() {
         return kalkulatorService.zadanie10a();
     }
+
     /*
     Zadanie10b
     Za pomocą instrukciji pętli do while dla danych wartośći x zmięniających o 0 do 10 odliczymy wartość funkciji y=3x
      */
     @GetMapping("/zadanie10b")
-    public String zadanie10b(){
+    public String zadanie10b() {
         return kalkulatorService.zadanie10b();
     }
+
     /*
     zadanie10c
     z pomocą pętli while
      */
     @GetMapping("/zadanie10c")
-    public String zadanie10c(){
-       return kalkulatorService.zadanie10c();
+    public String zadanie10c() {
+        return kalkulatorService.zadanie10c();
     }
     /*
     Praca domowa zrobić z pomocą @RequestParam
@@ -246,15 +251,17 @@ następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci i
     Parametr 1-10
      */
     @GetMapping("/zadanie11a")
-    public String zadanie11a(){
+    public String zadanie11a() {
         return kalkulatorService.zadanie11a();
     }
+
     @GetMapping("/zadanie11aa")
-    public String zadanie11aa(){
+    public String zadanie11aa() {
         return kalkulatorService.zadanie11aa();
     }
+
     @GetMapping("/zadanie11ab")
-    public String zadanie11ab(){
+    public String zadanie11ab() {
         return kalkulatorService.zadanie11ab();
     }
 /*
@@ -264,23 +271,25 @@ następnie wykona sprawdzenie czy liczba a jest dzielnikiem liczby b i zwróci i
     Parametr 1-10
      */
 
-   @GetMapping("/zadanie11b")
-    public String zadanie11b(){
-       return kalkulatorService.zadanie11b();
-   }
-   /*
-   Zadanie11c z petlą while
-   while(){wiersze
-   pierwotne ustawienie dla kolumny
-   while(){kolumny
-   mnozenie
-   inkrementacja kolumny
-   }}
-    */
+    @GetMapping("/zadanie11b")
+    public String zadanie11b() {
+        return kalkulatorService.zadanie11b();
+    }
+
+    /*
+    Zadanie11c z petlą while
+    while(){wiersze
+    pierwotne ustawienie dla kolumny
+    while(){kolumny
+    mnozenie
+    inkrementacja kolumny
+    }}
+     */
     @GetMapping("/zadanie11c")
-    public String zadanie11c(){
+    public String zadanie11c() {
         return kalkulatorService.zadanie11c();
     }
+
     /*
  //region ZADANIE DOMOWE
   /*
@@ -299,33 +308,50 @@ znajduje największą i najmniejszą liczbę ze zbioru 'n' wylosowanych liczb ca
 oraz oblicza średnią ze wszystkich wylosowanych liczb
   */
     //endregion
-
+//region ZADANIE DOMOWE
+  /*
+zadanie
+  Proszę zadanie 10 (a, b, c) przerobić tak, aby można było z zewnątrz podać parametr x oraz parametr do kiedy nasza pętla ma się wykonywać
+  Proszę aby nie wzorować się na dostępnych metodach.
+Zadania dla chętnych:
+1)
+Napisz program, który oblicza wartość x z równania ax+b = c. Wartości a, b i c należy podać poprzez PathVariable, RequestParam lub RequestBody.
+Należy zabezpieczyć program na wypadek sytuacji, kiedy wprowadzona wartość 'a' będzie równa zero. Dla zmiennych a, b, c oraz x należy
+przyjąć format wyświetlania ich na ekranie z dokładnością do dwóch miejsc
+po przecinku
+2)
+Napisz program, który za pomocą instrukcji (for, do ... while oraz while, tzn trzy różne rozwiązania)
+znajduje największą i najmniejszą liczbę ze zbioru 'n' wylosowanych liczb całkowitych od 0 do 100
+oraz oblicza średnią ze wszystkich wylosowanych liczb
+  */
+    //endregion
     @GetMapping("/wartosc-rowniania/{a}/{b}/{c}")
-    public String wartoscRowniania(@PathVariable("a") final double a, @PathVariable("b") final double b, @PathVariable("c") final double c){
-      return   kalkulatorService.wartoscRowniania(a,b,c);
+    public String wartoscRowniania(@PathVariable("a") final double a, @PathVariable("b") final double b, @PathVariable("c") final double c) {
+        return kalkulatorService.wartoscRowniania(a, b, c);
     }
+
     @PostMapping("/wartosc-rowniania2/{a}/{b}/{c}")
-    public String wartoscRowniania2(@RequestParam("a")final double a,
-                                    @RequestParam("b")final double b,
-                                    @RequestParam("c")final double c){
-        return kalkulatorService.wartoscRowniania2(a,b,c);
+    public String wartoscRowniania2(@RequestParam("a") final double a,
+                                    @RequestParam("b") final double b,
+                                    @RequestParam("c") final double c) {
+        return kalkulatorService.wartoscRowniania2(a, b, c);
     }
 
     @GetMapping("/zbior-n")
-    public String zbiorN(){
+    public String zbiorN() {
         return kalkulatorService.zbiorN();
     }
 
- /*
-    Praca domowa zrobić z pomocą @RequestParam
-    @RequestBody zadania 10a-c
-    Za pomocą instrukciji pętli for dla danych wartośći x zmięniających o 0 do 10 odliczymy wartość funkciji y=3x
-    Proszę zadanie 10 (a, b, c) przerobić tak, aby można było z zewnątrz podać parametr x oraz parametr do kiedy nasza pętla ma się wykonywać
-    Proszę aby nie wzorować się na dostępnych metodach.
-     */
+    /*
+       Praca domowa zrobić z pomocą @RequestParam
+       @RequestBody zadania 10a-c
+       Za pomocą instrukciji pętli for dla danych wartośći x zmięniających o 0 do 10 odliczymy wartość funkciji y=3x
+       Proszę zadanie 10 (a, b, c) przerobić tak, aby można było z zewnątrz podać parametr x oraz parametr do kiedy nasza pętla ma się wykonywać
+       Proszę aby nie wzorować się na dostępnych metodach.
+        */
     @GetMapping("/zadanie10-PD")
-    public String zadanie10PD(@RequestParam("x") final Integer x,@RequestParam("p") final Integer p){
-        return  kalkulatorService.zadanie10PD(x,p);
+    public String zadanie10PD(@RequestParam("x") final Integer x, @RequestParam("p") final Integer p) {
+        return kalkulatorService.zadanie10PD(x, p);
     }
 
 }

@@ -9,7 +9,6 @@ import java.text.DecimalFormat;
 import java.util.*;
 
 
-
 @Service
 @RequiredArgsConstructor
 public class KalkulatorService {
@@ -299,24 +298,62 @@ public class KalkulatorService {
         Locale polishLocale = Locale.forLanguageTag("pl-PL");//oczekujemy języka polskiego
         Locale.setDefault(polishLocale);
         DecimalFormat df = new DecimalFormat("#,##.##");
-        double x=0.0;
+        double x = 0.0;
         if (a == 0) {
             throw new RuntimeException("a nie może byc nulem");
 
-        }else{
-            x=(c-b)/a;
+        } else {
+            x = (c - b) / a;
         }
-        return "Przy a:"+a+"b: "+b+"c: "+c+"x= "+x;
+        return "Przy a:" + a + "b: " + b + "c: " + c + "x= " + x;
     }
 
     public String zbiorN() {
 
-        List<Integer>zbiorN=new ArrayList<>();
-        Random random=new Random();
+        List<Integer> zbiorN = new ArrayList<>();
+        Random random = new Random();
+        Integer min = 100;
+        Integer max = 0;
+        Integer suma = 0;
+        Double srednia = 0.0;
         for (int i = 0; i < 5; i++) {
             zbiorN.add(random.nextInt(100) + 1);
         }
+        for (Integer ele : zbiorN) {
+
+            suma += ele;
+
+            if (ele < min) {
+                min = ele;
+            }
+
+            if (ele > max) {
+                max = ele;
+            }
+        }
+
+        srednia = (double) suma / zbiorN.size();
+        return "Dla przdzialu: " + zbiorN + "Maksymalna liczba jest: " + max + ", " +
+                "minimalana liczba jest:  " + min + ",srednia liczba przedzialu jest: " + srednia;
+    }
+
+    public String zadanie10PD(final Integer x, final Integer p) {
+        Integer y = 0;
 
         return null;
+    }
+
+    public String wartoscRowniania2(final double a, final double b, final double c) {
+        Locale polishLocale = Locale.forLanguageTag("pl-PL");//oczekujemy języka polskiego
+        Locale.setDefault(polishLocale);
+        DecimalFormat df = new DecimalFormat("#,##.##");
+        double x = 0.0;
+        if (a == 0) {
+            throw new RuntimeException("a nie może byc nulem");
+
+        } else {
+            x = (c - b) / a;
+        }
+        return "Przy a:" + df.format(a) + "b: " + df.format(b) + "c: " + df.format(c) + "x= " + df.format(x);
     }
 }

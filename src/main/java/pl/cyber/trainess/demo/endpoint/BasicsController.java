@@ -304,12 +304,28 @@ oraz oblicza średnią ze wszystkich wylosowanych liczb
     public String wartoscRowniania(@PathVariable("a") final double a, @PathVariable("b") final double b, @PathVariable("c") final double c){
       return   kalkulatorService.wartoscRowniania(a,b,c);
     }
+    @PostMapping("/wartosc-rowniania2/{a}/{b}/{c}")
+    public String wartoscRowniania2(@RequestParam("a")final double a,
+                                    @RequestParam("b")final double b,
+                                    @RequestParam("c")final double c){
+        return kalkulatorService.wartoscRowniania2(a,b,c);
+    }
 
     @GetMapping("/zbior-n")
     public String zbiorN(){
         return kalkulatorService.zbiorN();
     }
 
-
+ /*
+    Praca domowa zrobić z pomocą @RequestParam
+    @RequestBody zadania 10a-c
+    Za pomocą instrukciji pętli for dla danych wartośći x zmięniających o 0 do 10 odliczymy wartość funkciji y=3x
+    Proszę zadanie 10 (a, b, c) przerobić tak, aby można było z zewnątrz podać parametr x oraz parametr do kiedy nasza pętla ma się wykonywać
+    Proszę aby nie wzorować się na dostępnych metodach.
+     */
+    @GetMapping("/zadanie10-PD")
+    public String zadanie10PD(@RequestParam("x") final Integer x,@RequestParam("p") final Integer p){
+        return  kalkulatorService.zadanie10PD(x,p);
+    }
 
 }

@@ -4,6 +4,8 @@ package pl.cyber.trainess.demo.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import pl.cyber.trainess.demo.dto.RownanieKwadratoweRequest;
+import pl.cyber.trainess.demo.dto.StringRequest;
+import pl.cyber.trainess.demo.dto.Zadanie10PDRequest;
 
 import java.text.DecimalFormat;
 import java.util.*;
@@ -337,11 +339,6 @@ public class KalkulatorService {
                 "minimalana liczba jest:  " + min + ",srednia liczba przedzialu jest: " + srednia;
     }
 
-    public String zadanie10PD(final Integer x, final Integer p) {
-        Integer y = 0;
-
-        return null;
-    }
 
     public String wartoscRowniania2(final double a, final double b, final double c) {
         Locale polishLocale = Locale.forLanguageTag("pl-PL");//oczekujemy języka polskiego
@@ -355,5 +352,33 @@ public class KalkulatorService {
             x = (c - b) / a;
         }
         return "Przy a:" + df.format(a) + "b: " + df.format(b) + "c: " + df.format(c) + "x= " + df.format(x);
+    }
+
+    public String zadanie10PD(Integer x, final Integer p) {
+        Integer y = 0;
+        String result = "";
+        do {
+            y = 3 * x;
+            result += "x = " + x + "\t " + "y = " + y + "\n";
+            x++;
+        } while (x <= p);
+        return result;
+    }
+
+    public String zadanie10PD1(final Zadanie10PDRequest request) {
+        Integer y = 0;
+        StringBuilder result = new StringBuilder();
+        Integer x = request.getX();
+        Integer p = request.getP();
+        if (x < p) {
+            throw new RuntimeException("x nie może byc mniejszy za p");
+        } else {
+            for (int x1 = x; x1 < p; x1++) {
+                y = 3 * x1;
+                result.append("x= ").append(x1).append("\t").append("y= ").append(y).append("\n");
+
+            }
+            return String.valueOf(result);
+        }
     }
 }

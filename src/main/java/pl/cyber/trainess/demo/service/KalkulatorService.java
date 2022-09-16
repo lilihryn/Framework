@@ -3,6 +3,7 @@ package pl.cyber.trainess.demo.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import pl.cyber.trainess.demo.dto.IntegerRequest;
 import pl.cyber.trainess.demo.dto.RownanieKwadratoweRequest;
 import pl.cyber.trainess.demo.dto.StringRequest;
 import pl.cyber.trainess.demo.dto.Zadanie10PDRequest;
@@ -319,7 +320,7 @@ public class KalkulatorService {
         Integer suma = 0;
         Double srednia = 0.0;
         for (int i = 0; i < 5; i++) {
-            zbiorN.add(random.nextInt(100) + 1);
+            zbiorN.add(random.nextInt(100));
         }
         for (Integer ele : zbiorN) {
 
@@ -380,5 +381,45 @@ public class KalkulatorService {
             }
             return String.valueOf(result);
         }
+    }
+
+    public String zadanie12f(final IntegerRequest request) {
+        Random random = new Random();
+        Integer iloscLosowan = request.getA();
+        List<Integer> listaLiczb = new ArrayList<>();
+        Integer min = 100;
+        Integer max = 0;
+        Integer suma = 0;
+        Double srednia = 0.0;
+
+        for (int i = 0; i < iloscLosowan; i++) {
+            listaLiczb.add(random.nextInt(100));
+        }
+       /* z pomocą for-a
+        for (int i = 0; i < listaLiczb.size(); i++) {
+            Integer element = listaLiczb.get(i);
+            suma += element;
+            if (element < min) {
+                min = element;
+            }
+            if (element > max) {
+                max = element;
+            }
+        }*/
+
+        //z pomocą foreach
+        for (Integer element :
+                listaLiczb) {
+            suma += element;
+            if (element < min) {
+                min = element;
+            }
+            if (element > max) {
+                max = element;
+            }
+        }
+        srednia = (double)suma / (listaLiczb.size());
+
+        return "Dla listy: "+listaLiczb+"min: "+min+"max: "+max+",natomiast średnia: "+srednia;
     }
 }

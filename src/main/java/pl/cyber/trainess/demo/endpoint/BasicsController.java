@@ -341,5 +341,14 @@ oraz oblicza średnią ze wszystkich wylosowanych liczb
     public String zadanie10PD1(@RequestBody final Zadanie10PDRequest request){
         return kalkulatorService.zadanie10PD1(request);
     }
+/*
+Napisz program, który za pomocą instrukcji (for, do ... while oraz while, tzn trzy różne rozwiązania)
+znajduje największą i najmniejszą liczbę ze zbioru 'n' wylosowanych liczb całkowitych od 0 do 100
+oraz oblicza średnią ze wszystkich wylosowanych liczb
+ */
 
+    @PostMapping("/zadanie12for")
+    public String zadanie12for(@RequestBody IntegerRequest request){
+        return kalkulatorService.zadanie12f(request);
+    }
 }

@@ -2,3 +2,40 @@ server:
   port: 8150
   servlet:
     context-path: /demo
+
+spring:
+  datasource:
+    url: jdbc:postgresql://185.204.217.194:5432/lh_db
+    username: lilliah
+    password: lh-12345
+    ##localhost baza danych na lokalnym Pc
+    #127.0.0.1 baza danych na lokalnym Pc
+    #db.google.com
+    #adres IP Publiczny //185.204.217.194:5432/
+  jpa: # otwarcie kontekstu do konfiguracji JPA, czyli mechanizmu wspomagającego
+    #        tworzenie zapytań SQL do bazy
+    hibernate: # konfiguracja mechanizmu, który 'rozmawia' z DB poprzez zapytania SQL
+      ddl-auto: validate # konfiguracja sprawdzająca strukturę DB
+      use-new-id-generator-mappings: true # mechanizm dzięki, któremu będziemy generować
+      #wartości dla id (primary key) naszych tabel
+    database-platform: org.hibernate.dialect.PostgreSQLDialect # ustalenie języka rozmowy z DB
+    show-sql: true # konfiguracja aby zapytania SQL z app zostały wyświetlone w konsoli
+    properties:
+      hibernate:
+        format_sql: true # parametr ma za zadanie ładnie przedstawić zapytanie SQL w konsoli
+        temp:
+          use_jdbc_metadata_defaults: false
+  liquibase:
+    enabled: true # włączamy mechanizm liquibase, aby mógł za nas utworzyć strukturę DB
+    drop-first: false # zanim uruchomi się app to zostanie usunięta struktura DB
+    # i ponownie założona
+
+logging:
+  level:
+    org:
+      hibernate:
+        type:
+          descriptor:
+            sql: trace # dostępne opcje INFO, TRACE, DEBUG
+              # INFO - będzie podstawowa informacja o parametrach w zapytanie SQL
+            # TRACE - informacje o parametrach oraz ich wartościach.

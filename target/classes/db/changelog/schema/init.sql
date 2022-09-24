@@ -1,13 +1,13 @@
 create table bankomat(
-          id         varchar(40),--UUID: ea1b5aeb-ab59-41de-abfa-350bd01e6ece
+      id         varchar(40),--UUID: ea1b5aeb-ab59-41de-abfa-350bd01e6ece
 
-          name       varchar(255),
-          saldo      DECIMAL,
-          miasto     varchar(255),
-          ulica      varchar(255),
-          czy_aktywny   boolean,
-          PRIMARY KEY(id)
-          );
+      name      varchar(255),
+      saldo      DECIMAL,
+      miasto     varchar(255),
+      ulica      varchar(255),
+      czy_aktywny   boolean,
+      PRIMARY KEY(id)
+      );
 
        create table konto_bankowe(
        id          varchar(255) PRIMARY KEY,
@@ -17,3 +17,5 @@ create table bankomat(
        data_ur     timestamp,
        miasto      varchar(255)
        );
+
+

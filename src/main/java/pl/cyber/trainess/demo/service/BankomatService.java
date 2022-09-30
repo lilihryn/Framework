@@ -18,78 +18,86 @@ import java.util.Objects;
 @Service
 @Slf4j
 public class BankomatService {
+
     private final BankomatRepository bankomatRepository;
     private final FileReaderService fileReaderService;
 
     public List<BankomatDTO> getAllAtms() {
-        /*
-        połączenie do DB oraz pobranie odpowiednych informacji
-        przygotowanie Listy wynikowej
-        petla konwertująca obiekt DB na obiekt dla Użytkownika
-        komentarz dla siebie)
-         */
+        log.info("Wyszukanie wszystkich bankomatów");
+        log.warn("Coś poszło nie tak!! :)");
+        log.error("Rest communication failed!!");
 
-        log.info("Wyszukanie wszystkich bankomatów");//adnotacja lombokowa
-        log.warn("Coś poszło nie tak:)");
-        log.error("Rest comunication failed");
-
-        var allAtms = bankomatRepository.findAll();//(1)
+        var allAtms = bankomatRepository.findAll();
         List<BankomatDTO> result = new ArrayList<>();
+
         for (BankomatEntry entry : allAtms) {
             result.add(entry.convertToDTO());
         }
-        return result;
 
+        return result;
     }
 
-    public void create(final BankomatDTO bankomatDTO) {//metoda do zapisywania informacji w bankomacie
+    public void create(final BankomatDTO bankomatDTO) {
+
         bankomatRepository.save(BankomatEntry.builder()
                 .miasto(bankomatDTO.getMiasto())
+                .czyAktywny(bankomatDTO.getCzyAktywny())
                 .name(bankomatDTO.getName())
                 .saldo(bankomatDTO.getSaldo())
-                .czyAktywny(bankomatDTO.getCzyAktywny())
                 .ulica(bankomatDTO.getUlica())
                 .build());
     }
-@Transactional
-    public void updateName(final String id, final String name) {
-
-
-//        nie zalecana aktualizacja recordów
-//        var AllAtms:List<BankomatEntry>=bankomatRepository.findAll();
-//        for (BankomatEntry entry:AllAtms
-//             ) {
-//            if(entry.get().equals(id)){
-//            entry.setName(name);
-//            bankomatRepository.save(entry);
-//
-//        }
-//        }
-//    }
-//      //  var atm=bankomatRepository.findById(id).orElseThrow((new RuntimeException("Brak recordu!!!")));
-//        var atm=bankomatRepository.findById(id).ifPresent(entry -> {entry.setName(name);bankomatRepository.save(entry);},
-//
-//                () ->{throw  new RuntimeException("Brak rekordu");
-//        });
-
-//        var atm=bankomatRepository.findById(id).orElse(null);
-//        if(Objects.nonNull(atm)){
-//            atm.setName(name);
-//            bankomatRepository.save(atm);
-//
-//        }
-
-     bankomatRepository.updateName(id,name);
-
-    }
-    //jak odczytac pliki od użytkownika
-    //MultipartFile
 
     public void create(final MultipartFile file) {
+        List<BankomatDTO> bankomatDTOs = fileReaderService.readATMFile(file);
 
+        for (BankomatDTO element : bankomatDTOs) {
+            bankomatRepository.save(BankomatEntry.builder()
+                    .name(element.getName())
+                    .saldo(element.getSaldo())
+                    .miasto(element.getMiasto())
+                    .ulica(element.getUlica())
+                    .czyAktywny(element.getCzyAktywny())
+                    .build());
+        }
     }
 
+    @Transactional
+    public void updateName(final String id, final String name) {
+//    1)
+    /*var allAtms = bankomatRepository.findAll();
+    for (BankomatEntry entry : allAtms) {
+        if (entry.getId().equals(id)) {
+          entry.setName(name);
+          bankomatRepository.save(entry);
+        }
+      }*/
+//    2)
+//    var atm = bankomatRepository.findById(id).orElseThrow(() -> new RuntimeException("Brak rekordu!!!!") );
+//    3)
+//    bankomatRepository.findById(id)
+//        .ifPresent(entry -> {
+//          entry.setName(name);
+//          bankomatRepository.save(entry);
+//        });
+//4)
+        bankomatRepository.findById(id)
+                .ifPresentOrElse(entry -> {
+                            entry.setName(name);
+                            bankomatRepository.save(entry);
+                        },
+                        () -> {
+                            throw new RuntimeException("Brak rekordu!!!!");
+                        });
+//5)
+//   var atm = bankomatRepository.findById(id).orElse(null);
+//   if(Objects.nonNull(atm)) {
+//     atm.setName(name);
+//     bankomatRepository.save(atm);
+//   }
 
+//    bankomatRepository.updateName(id, name);
 
+    }
 
 }

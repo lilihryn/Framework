@@ -36,4 +36,12 @@ public class BankomatController {
             @RequestPart()MultipartFile file){
         bankomatService.create(file);
     }
+    @PostMapping("/wplata")
+    public void wplata(@RequestParam("id" ) final String id,@RequestParam ("cash") final Integer cash) {
+        bankomatService.wplata(id, cash);
+    }
+    @PostMapping("/wyplata")
+    public void wyplata(@RequestParam("id") final String id,@RequestParam("cash") final Integer cash){
+        bankomatService.wyplata(id,cash);
+    }
 }

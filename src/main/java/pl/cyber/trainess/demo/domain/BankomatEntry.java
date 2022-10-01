@@ -28,6 +28,7 @@ public class BankomatEntry {
     @Setter
     private String name;
 
+    @Setter
     @Column(name = "SALDO")
     private BigDecimal saldo;
 
@@ -36,7 +37,7 @@ public class BankomatEntry {
 
     @Column(name = "ULICA")
     private String ulica;
-
+    @Setter
     @Column(name = "CZY_AKTYWNY")
     private Boolean czyAktywny;
 

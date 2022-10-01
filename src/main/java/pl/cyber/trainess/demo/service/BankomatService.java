@@ -4,12 +4,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import pl.cyber.trainess.demo.domain.BankomatEntry;
 import pl.cyber.trainess.demo.dto.BankomatDTO;
 import pl.cyber.trainess.demo.repository.BankomatRepository;
 
 import javax.transaction.Transactional;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -100,4 +103,39 @@ public class BankomatService {
 
     }
 
+
+    public void wplata(final String id, final Integer cash) {
+        if (cash <= 0) {
+            throw new RuntimeException("Niedozwolona kwota wyplaty!");
+        }
+
+        var atm = bankomatRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nie odnaleziono bankomatu"));
+
+        atm.setSaldo(BigDecimal.valueOf(cash));
+        if (atm.getSaldo().compareTo(BigDecimal.ZERO) > 0) {
+            atm.setCzyAktywny(true);
+        }
+        bankomatRepository.save(atm);
+    }
+
+    public void wyplata(final String id, final Integer cash) {
+        if (cash <= 0) {
+            throw new RuntimeException("Prosze podac kwotę >0");
+        }
+
+        var atm = bankomatRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Nie odnaleziona bankomatu"));
+
+        if (atm.getSaldo().subtract(BigDecimal.valueOf(cash)).compareTo(BigDecimal.ZERO) < 0) {
+            //pobieranie salda przez getsaldo, metoda substract jest metoda odejmowania dla BigDecimal,
+            //compareTo porówniujemy wynik z domiślienoj wartościu 0 i zwraca (-1,0,1) i sprawdzamy wartość
+            throw new RuntimeException("Kwota wyplaty jest wieksza niż gotówka w bankomacie");
+        }
+        atm.setSaldo(atm.getSaldo().subtract(BigDecimal.valueOf(cash)));
+        if (atm.getSaldo().compareTo(BigDecimal.ZERO) > 0) {
+            atm.setCzyAktywny(false);
+        }
+        bankomatRepository.save(atm);
+    }
 }

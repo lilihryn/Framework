@@ -50,4 +50,8 @@ public class BankomatController {
     public void getBankomatPDFFile(HttpServletResponse response){
         bankomatService.getBankomatPDFFile(response);
     }
+    @PostMapping("/csv")
+    public void getBankomatCSVFile(HttpServletResponse response){
+        bankomatService.getBankomatCSVFile(response);
+    }
 }

@@ -13,6 +13,11 @@ import net.sf.dynamicreports.report.exception.DRException;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRCsvExporter;
+import net.sf.jasperreports.export.SimpleCsvExporterConfiguration;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleWriterExporterOutput;
 import org.apache.commons.lang3.CharEncoding;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,8 +32,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.transaction.Transactional;
 import java.awt.*;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -225,5 +232,39 @@ public class BankomatService {
         reportBuilder.setDetailSplitType(SplitType.PREVENT);
         reportBuilder.setColumnStyle(stl.style().setHorizontalTextAlignment(HorizontalTextAlignment.JUSTIFIED));
         reportBuilder.highlightDetailOddRows();
+    }
+
+    //tworzenie failu csv
+    public void getBankomatCSVFile(final HttpServletResponse response) {
+        try {
+            JasperPrint reportCSV = getReportContext();
+            response.setContentType("txt/csv");
+            //internet servlet response documentacja
+            response.setHeader("Content-Disposion", "attachment;filename=bankomat-file.csv");
+            OutputStream out = response.getOutputStream();
+            JRCsvExporter csvExporter = new JRCsvExporter();
+            csvExporter.setExporterInput(SimpleExporterInput.getInstance(Arrays.asList(reportCSV)));
+            csvExporter.setExporterOutput(new SimpleWriterExporterOutput(out));
+            SimpleCsvExporterConfiguration simpleCsvExporterConfiguration = new SimpleCsvExporterConfiguration();
+            simpleCsvExporterConfiguration.setFieldDelimiter("|");
+            csvExporter.setConfiguration(simpleCsvExporterConfiguration);
+                csvExporter.exportReport();
+                out.flush();
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        } catch (JRException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private JasperPrint getReportContext() {
+        try {
+            return getReportContextPrepare().toJasperPrint();
+        } catch (DRException e) {
+            throw new RuntimeException();
+        }
     }
 }

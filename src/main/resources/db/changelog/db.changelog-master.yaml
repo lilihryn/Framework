@@ -6,3 +6,9 @@ databaseChangeLog:
         - sqlFile:
              path: db/changelog/schema/init.sql
          # path:  ..\db\changelog\schema.init.sql
+ -changeSet:
+    id: add-new-column-to kontoBankowe
+    author: lh
+    changes:
+      -sqlFile:
+        path:db/changelog/schema/add-new-column-KB.sql

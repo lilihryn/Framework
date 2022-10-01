@@ -1,0 +1,1 @@
+alter table konto_bankowe add column if not exists nr_karty integer;

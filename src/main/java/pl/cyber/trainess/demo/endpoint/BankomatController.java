@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 import pl.cyber.trainess.demo.dto.BankomatDTO;
 import pl.cyber.trainess.demo.service.BankomatService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -43,5 +44,10 @@ public class BankomatController {
     @PostMapping("/wyplata")
     public void wyplata(@RequestParam("id") final String id,@RequestParam("cash") final Integer cash){
         bankomatService.wyplata(id,cash);
+    }
+    //budowanie raportu pdf
+    @PostMapping("/pdf")
+    public void getBankomatPDFFile(HttpServletResponse response){
+        bankomatService.getBankomatPDFFile(response);
     }
 }
